@@ -54,7 +54,7 @@ def set_log_level(ctx, param, value):
     is_flag=True,
     expose_value=False,
     callback=set_log_level)
-def fixstb_cli(input):
+def cli(input):
     logging.info("Hello, world!")
     text = input.read().decode()
     logging.debug(f"{text=}")
@@ -62,4 +62,4 @@ def fixstb_cli(input):
 
 
 if __name__ == '__main__':
-    fixstb_cli()
+    cli()

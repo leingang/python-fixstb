@@ -26,23 +26,34 @@ git clone https://github.com/leingang/python-fixstb.git
 cd python-fixstb
 virtualenv-3.9 ~/.local/share/virtualenvs/fixstb
 . ~/.local/share/virtualenvs/fixstb/bin/activate
-python -m pip install click
-python -m pip install latex2mathml
+python -m pip install .
+deactivate
+```
+
+This will install the `fixstb` script in
+`~/.local/share/virtualenvs/fixstb/bin/`.  You can run it directly by that
+filename, or link to it from any directory in your `$PATH`.  For instance:
+
+```shell
+pushd ~/.local/bin
+ln -s ~/.local/share/virtualenvs/fixstb/bin/fixstb .
+popd
 ```
 
 Windows:
 
-Not attempted.  If you have and can contribute here, please do.
+Not attempted.  If you have installed `fixstb` successfully on Windows, please
+contribute some documentation.
 
 ## Using `fixstb`
 
 `fixstb` provides one script, which has a command line interface
 
-```
-./fixstb.py in.html
+```shell
+fixstb in.html
 ```
 
-You can leave off the file argument, in which case `fixstb.py` will read
+You can leave off the file argument, in which case `fixstb` will read
 `STDIN`.
 
 Here is a recommended workflow.
@@ -50,7 +61,7 @@ Here is a recommended workflow.
 1. Open a Brightspace page in the browser and a terminal window alongside it.
 2. In the browswer, edit any RTE element and choose the `</>` option to view the source.
 3. Copy the source to the clipboard.
-4. In the terminal window, type `pbpaste | ./fixstb.py | pbcopy`.  This will replace the contents of the clipboard with the fixed version.
+4. In the terminal window, type `pbpaste | fixstb | pbcopy`.  This will replace the contents of the clipboard with the fixed version.
 5. Back in the browser, paste.
 6. Go to the next element that needs to be converted and repeat.  Since the terminal command doesn't change, it can be repeated with an up-arrow and return.
 
