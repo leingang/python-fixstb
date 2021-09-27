@@ -9,21 +9,29 @@ import latex2mathml.converter
 
 
 def convert_inline(m):
+    """Convert a block of LaTeX to MathML (inline mode)"""
     contents = m.group(1)
     s = latex2mathml.converter.convert(contents)
-    s = unescape(s)
-    s = s.replace('<mi>ℤ</mi>','<mi mathvariant="double-struck">Z</mi>')
     return s
 
-def fixstb(text):
+def convert_block(m):
+    """Convert a block of LaTeX to MathML (display mode)"""
+    contents= m.group(1)
+    s = latex2mathml.converter.convert(contents,display="block")
+    return s
+
+def fixstb(s):
     """Fix HTML issues created by the Sakai to Brightspace conversion.
     
     Namely, text between dollar signs ($...$) is converted to MathML in inline mode
     (not block mode, which is Brightspace's default)    
     """
-    text = unescape(text)
-    text = re.sub('\$(.*?)\$',convert_inline,text)
-    return text
+    s = unescape(s)
+    s = re.sub('\$\$(.*?)\$\$',convert_block,s)
+    s = re.sub('\$(.*?)\$',convert_inline,s)
+    s = unescape(s)
+    s = s.replace('<mi>ℤ</mi>','<mi mathvariant="double-struck">Z</mi>')
+    return s
 
 
 # cli helper
