@@ -27,8 +27,10 @@ def fixstb(s):
     (not block mode, which is Brightspace's default)    
     """
     s = unescape(s)
-    s = re.sub('\$\$(.*?)\$\$',convert_block,s)
-    s = re.sub('\$(.*?)\$',convert_inline,s)
+    s = re.sub(r'\$\$(.*?)\$\$',convert_block,s)
+    s = re.sub(r'\\\[(.*?)\\\]',convert_block,s)
+    s = re.sub(r'\$(.*?)\$',convert_inline,s)
+    s = re.sub(r'\\\((.*?)\\\)',convert_inline,s)
     s = unescape(s)
     s = s.replace('<mi>ℤ</mi>','<mi mathvariant="double-struck">Z</mi>')
     return s
